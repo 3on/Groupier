@@ -1,0 +1,76 @@
+<html>
+<head>
+    <title>Drop file and folders here</title>
+    <style type="text/css">
+    html, body {
+        margin: 0px;
+        padding: 0px;
+        height: 100%;
+        width: 100%;
+    }
+    body {
+        font-family: Helvetica;
+        color: rgb(142,142,142);
+    }
+    #drop {
+        position: absolute;
+        top: 40px;
+        left: 40px;
+        right: 40px;
+        bottom: 200px;
+        border-radius: 20px;
+        border: 4px dashed rgb(142,142,142);
+        text-align: center;
+        padding-top: 35%;
+        font-family: Helvetica;
+        font-size: 40px;
+        color: rgb(142,142,142);
+    }
+    #drop:after{
+        content: "Drop some files and folders here"
+    }
+    #drop:hover {
+        border: 4px dashed rgb(42,42,42);
+        color: rgb(42,42,42);
+    }
+    #links {
+        margin: 0px;
+        padding: 0px;
+        font-size: 20px;
+        position: absolute;
+        bottom: 30px;
+        width: 100%;
+        text-align: center;
+    }
+    </style>
+    <script type="text/javascript">
+    document.ondrop = function(e){
+        e.preventDefault()
+
+        var items = e.dataTransfer.items;
+        for (var i = 0, item; item = items[i]; ++i) { 
+            var entry = item.webkitGetAsEntry();
+
+            if (entry.isDirectory) {
+                console.log("Directory", entry.name);
+            }
+            else if (entry.isFile) {
+                console.log("File", entry.name);
+            }
+            else {
+                console.log("Error of somekind #12345")
+            }
+        }
+    }
+    
+
+    </script>
+</head>
+<body>
+    <div id="drop"></div>
+    <ul id="links">
+        <li><a href="http://updates.html5rocks.com/2012/08/Integrating-input-type-file-with-the-Filesystem-API"> html5rocks.com blog post</a></li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/DragDrop/DataTransfer#mozGetDataAt.28.29">Mozilla's equivalent</a></li>
+    </ul>
+</body>
+</html>
